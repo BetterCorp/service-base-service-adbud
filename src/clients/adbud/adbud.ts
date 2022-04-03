@@ -5,6 +5,7 @@ import { ICustomerData } from '../../plugins/adbud/ICustomer';
 import { MyPluginConfig } from '../../plugins/adbud/sec.config';
 import { ISearchTermDatum } from '../../plugins/adbud/ISearchTerm';
 import { IDashboardData } from '../../plugins/adbud/IDashboard';
+import { ISetTermData } from '../../plugins/adbud/ISetTerm';
 
 export class adbud extends CPluginClient<MyPluginConfig> {
   public readonly _pluginName: string = "adbud";
@@ -30,8 +31,15 @@ export class adbud extends CPluginClient<MyPluginConfig> {
     });
   }
 
+  async setSearchTerm(config: IAdBudRequestAuth, term: string, wanted: boolean): Promise<ISetTermData> {
+    return await this.emitEventAndReturn<IAdBudRequest<{ term: string, wanted: boolean; }>, ISetTermData>("get-suggestions", {
+      auth: config,
+      data: { term, wanted }
+    });
+  }
+
   async getStats(config: IAdBudRequestAuth, query: IAdBudRequestStats): Promise<IDashboardData> {
-    return await this.emitEventAndReturn<IAdBudRequest<IAdBudRequestStats>, IDashboardData>("get-stats", {
+    return await this.emitEventAndReturn<IAdBudRequest<IAdBudRequestStats>, IDashboardData>("set-search-term", {
       auth: config,
       data: query
     });

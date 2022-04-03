@@ -7,6 +7,7 @@ import { ICustomerData } from './ICustomer';
 import { ICustomerSuggestionData } from './ICustomerSuggestion';
 import { ISearchTermDatum } from './ISearchTerm';
 import { IDashboardData } from './IDashboard';
+import { ISetTermData } from './ISetTerm';
 
 export class Plugin extends CPlugin<MyPluginConfig> {
   async init(): Promise<void> {
@@ -29,6 +30,13 @@ export class Plugin extends CPlugin<MyPluginConfig> {
       const adbudClient = new adbud(data!.auth.host, data!.auth.username, data!.auth.password, data!.auth.customerId);
       await adbudClient.login();
       return await adbudClient.getSearchTerms();
+    });
+
+    await this.onReturnableEvent<IAdBudRequest<{term: string, wanted: boolean}>, ISetTermData>(null, "set-search-term", async (data?) => {
+      if (Tools.isNullOrUndefined(data)) throw 'Undefined Data!';
+      const adbudClient = new adbud(data!.auth.host, data!.auth.username, data!.auth.password, data!.auth.customerId);
+      await adbudClient.login();
+      return await adbudClient.setSearchTerm(data!.data.term, data!.data.wanted);
     });
 
     await this.onReturnableEvent<IAdBudRequest<IAdBudRequestStats>, IDashboardData>(null, "get-stats", async (data?) => {

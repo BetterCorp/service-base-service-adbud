@@ -5,6 +5,7 @@ import { ICustomerData, ICustomer } from './ICustomer';
 import { ICustomerSuggestionData, ICustomerSuggestion } from './ICustomerSuggestion';
 import { IDashboardData, IDashboard, IDashboardSelector } from './IDashboard';
 import { ISearchTermDatum, ISearchTerm } from './ISearchTerm';
+import { ISetTermData, ISetTerm } from './ISetTerm';
 
 export class adbud {
   private username: string;
@@ -61,8 +62,8 @@ export class adbud {
     let params: Array<string> = [];
     let start = new Date(startDate);
     let end = new Date(endDate);
-    params.push(`start=${ start.getFullYear() }-${ start.getMonth() }-${ start.getDate() }`);
-    params.push(`end=${ end.getFullYear() }-${ end.getMonth() }-${ end.getDate() }`);
+    params.push(`start=${ start.getFullYear() }-${start.getMonth().toString().length === 1 ? '0' : ''}${ start.getMonth() }-${start.getDate().toString().length === 1 ? '0' : ''}${ start.getDate() }`);
+    params.push(`end=${ end.getFullYear() }-${end.getMonth().toString().length === 1 ? '0' : ''}${ end.getMonth() }-${end.getDate().toString().length === 1 ? '0' : ''}${ end.getDate() }`);
     for (let select of selectors) {
       params.push(`selector%5B%5D=${ select }`);
     }
@@ -73,9 +74,19 @@ export class adbud {
   }
 
   async getSearchTerms(): Promise<ISearchTermDatum[]> {
-    let customerResp = await this.axios.get<any, AxiosResponse<ISearchTerm>>(`/customer/${ this.customerId }/suggestion`);
+    let customerResp = await this.axios.get<any, AxiosResponse<ISearchTerm>>(`/customer/searchterm?custom_filters%5Bcategory%5D=none&custom_filters%5Bcustomer_id%5D=${this.customerId}&grid%5Browset%5D=50`);
     if (customerResp.status !== 200) throw `Customer Suggest GET Failed: ${ customerResp.status }`;
     if (customerResp.data.status !== 'success') throw `Customer Suggest GET Failed[]: ${ customerResp.data.status }`;
+    return customerResp.data.data;
+  }
+
+  async setSearchTerm(term: string, wanted: boolean): Promise<ISetTermData> {
+    let customerResp = await this.axios.post<any, AxiosResponse<ISetTerm>>(`/customer/${this.customerId}/searchterm`, {
+      term: term,
+      category: wanted ? 'wanted' : 'unwanted'
+    });
+    if (customerResp.status !== 200) throw `Customer searchTerm SET Failed: ${ customerResp.status }`;
+    if (customerResp.data.status !== 'success') throw `Customer searchTerm SET Failed[]: ${ customerResp.data.status }`;
     return customerResp.data.data;
   }
 }
