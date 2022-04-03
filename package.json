@@ -24,6 +24,7 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
-    "@bettercorp/service-base": "^7.6.20220316220708"
+    "@bettercorp/service-base": "^7.6.20220316220708",
+    "axios": "^0.26.1"
   }
 }
