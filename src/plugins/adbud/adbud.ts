@@ -33,6 +33,7 @@ export class adbud {
     if (loginResp.status !== 200) throw `Login Failed: ${ loginResp.status }`;
     if (loginResp.data.status !== 'success') throw `Login Failed[]: ${ loginResp.data.status }`;
 
+    (this.axios.defaults.headers as any)['Cookie'] = (loginResp as any).headers['set-cookie'][0];
     if (Tools.isNullOrUndefined(this.customerId)) {
       let customHtml = await this.axios({
         url: loginResp.data.data.url,
@@ -65,7 +66,7 @@ export class adbud {
     for (let select of selectors) {
       params.push(`selector%5B%5D=${ select }`);
     }
-    let customerResp = await this.axios.get<any, AxiosResponse<IDashboard>>(`/dashboard/${ this.customerId }/stats?${params.join('&')}`);
+    let customerResp = await this.axios.get<any, AxiosResponse<IDashboard>>(`/dashboard/${ this.customerId }/stats?${ params.join('&') }`);
     if (customerResp.status !== 200) throw `Customer Dashboard GET Failed: ${ customerResp.status }`;
     if (customerResp.data.status !== 'success') throw `Customer Dashboard GET Failed[]: ${ customerResp.data.status }`;
     return customerResp.data.data;
