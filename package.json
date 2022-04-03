@@ -1,0 +1,29 @@
+{
+  "name": "@bettercorp/service-base-plugin-adbud",
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "url": "https://gitlab.com/BetterCorp/public/service-base-plugin-adbud"
+  },
+  "scripts": {
+    "build": "tsc",
+    "version": "node ./node_modules/@bettercorp/service-base/build/version-bcorp.js $0",
+    "create": "ts-node node_modules/@bettercorp/service-base/lib/bootstrap.js $0",
+    "dev": "nodemon --config node_modules/@bettercorp/service-base/build/nodemon.json",
+    "start": "ts-node node_modules/@bettercorp/service-base/lib/index.js"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "version": "1.0.0",
+  "author": "ninja@bettercorp.co.za",
+  "bsb_project": true,
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "eslint": "^8.11.0",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "@bettercorp/service-base": "^7.6.20220316220708"
+  }
+}

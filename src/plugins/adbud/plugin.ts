@@ -1,0 +1,41 @@
+import { CPlugin } from "@bettercorp/service-base/lib/interfaces/plugins";
+import { MyPluginConfig } from './sec.config';
+import { Tools } from '@bettercorp/tools/lib/Tools';
+import { adbud } from './adbud';
+import { IAdBudRequest, IAdBudRequestStats } from './IAdBudRequest';
+import { ICustomerData } from './ICustomer';
+import { ICustomerSuggestionData } from './ICustomerSuggestion';
+import { ISearchTermDatum } from './ISearchTerm';
+import { IDashboardData } from './IDashboard';
+
+export class Plugin extends CPlugin<MyPluginConfig> {
+  async init(): Promise<void> {
+    await this.onReturnableEvent<IAdBudRequest<undefined>, ICustomerData>(null, "get-customer", async (data?) => {
+      if (Tools.isNullOrUndefined(data)) throw 'Undefined Data!';
+      const adbudClient = new adbud(data!.auth.host, data!.auth.username, data!.auth.password, data!.auth.customerId);
+      await adbudClient.login();
+      return await adbudClient.getCustomer();
+    });
+
+    await this.onReturnableEvent<IAdBudRequest<undefined>, ICustomerSuggestionData>(null, "get-suggestions", async (data?) => {
+      if (Tools.isNullOrUndefined(data)) throw 'Undefined Data!';
+      const adbudClient = new adbud(data!.auth.host, data!.auth.username, data!.auth.password, data!.auth.customerId);
+      await adbudClient.login();
+      return await adbudClient.getSuggestions();
+    });
+
+    await this.onReturnableEvent<IAdBudRequest<undefined>, ISearchTermDatum[]>(null, "get-search-terms", async (data?) => {
+      if (Tools.isNullOrUndefined(data)) throw 'Undefined Data!';
+      const adbudClient = new adbud(data!.auth.host, data!.auth.username, data!.auth.password, data!.auth.customerId);
+      await adbudClient.login();
+      return await adbudClient.getSearchTerms();
+    });
+
+    await this.onReturnableEvent<IAdBudRequest<IAdBudRequestStats>, IDashboardData>(null, "get-stats", async (data?) => {
+      if (Tools.isNullOrUndefined(data)) throw 'Undefined Data!';
+      const adbudClient = new adbud(data!.auth.host, data!.auth.username, data!.auth.password, data!.auth.customerId);
+      await adbudClient.login();
+      return await adbudClient.getStats(data!.data.startDate, data!.data.endDate, data!.data.selectors);
+    });
+  }
+}
