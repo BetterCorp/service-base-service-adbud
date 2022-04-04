@@ -25,21 +25,21 @@ export class adbud extends CPluginClient<MyPluginConfig> {
   }
 
   async getSearchTerms(config: IAdBudRequestAuth): Promise<ISearchTermDatum[]> {
-    return await this.emitEventAndReturn<IAdBudRequest<undefined>, ISearchTermDatum[]>("get-suggestions", {
+    return await this.emitEventAndReturn<IAdBudRequest<undefined>, ISearchTermDatum[]>("get-search-terms", {
       auth: config,
       data: undefined
     });
   }
 
   async setSearchTerm(config: IAdBudRequestAuth, term: string, wanted: boolean): Promise<ISetTermData> {
-    return await this.emitEventAndReturn<IAdBudRequest<{ term: string, wanted: boolean; }>, ISetTermData>("get-suggestions", {
+    return await this.emitEventAndReturn<IAdBudRequest<{ term: string, wanted: boolean; }>, ISetTermData>("set-search-term", {
       auth: config,
       data: { term, wanted }
     });
   }
 
   async getStats(config: IAdBudRequestAuth, query: IAdBudRequestStats): Promise<IDashboardData> {
-    return await this.emitEventAndReturn<IAdBudRequest<IAdBudRequestStats>, IDashboardData>("set-search-term", {
+    return await this.emitEventAndReturn<IAdBudRequest<IAdBudRequestStats>, IDashboardData>("get-stats", {
       auth: config,
       data: query
     });
