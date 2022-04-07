@@ -43,7 +43,7 @@ export class Plugin extends CPlugin<MyPluginConfig> {
       if (Tools.isNullOrUndefined(data)) throw 'Undefined Data!';
       const adbudClient = new adbud(data!.auth.host, data!.auth.username, data!.auth.password, data!.auth.customerId);
       await adbudClient.login();
-      return await adbudClient.getStats(data!.data.startDate, data!.data.endDate, data!.data.selectors);
+      return await adbudClient.getStats(data!.data.startDate, data!.data.endDate, data!.data.selectors, data!.data.hideCosts);
     });
   }
 }

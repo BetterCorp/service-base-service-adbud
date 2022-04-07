@@ -17,4 +17,5 @@ export interface IAdBudRequestStats {
   startDate: number;
   endDate: number;
   selectors: Array<IDashboardSelector>;
+  hideCosts: boolean;
 }
