@@ -62,8 +62,10 @@ export class adbud {
     let params: Array<string> = [];
     let start = new Date(startDate);
     let end = new Date(endDate);
-    params.push(`start=${ start.getFullYear() }-${ start.getMonth().toString().length === 1 ? '0' : '' }${ start.getMonth() }-${ start.getDate().toString().length === 1 ? '0' : '' }${ start.getDate() }`);
-    params.push(`end=${ end.getFullYear() }-${ end.getMonth().toString().length === 1 ? '0' : '' }${ end.getMonth() }-${ end.getDate().toString().length === 1 ? '0' : '' }${ end.getDate() }`);
+    let sMonth = start.getMonth()+1;
+    params.push(`start=${start.getFullYear()}-${sMonth.toString().length === 1 ? '0' : ''}${sMonth}-${start.getDate().toString().length === 1 ? '0' : ''}${start.getDate()}`);
+    let eMonth = end.getMonth()+1;
+    params.push(`end=${end.getFullYear()}-${eMonth.toString().length === 1 ? '0' : ''}${eMonth}-${end.getDate().toString().length === 1 ? '0' : ''}${end.getDate()}`);
     for (let select of selectors) {
       params.push(`selector%5B%5D=${ select }`);
     }
