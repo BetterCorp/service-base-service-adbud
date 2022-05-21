@@ -1,9 +1,3 @@
-
-export interface ICustomerSuggestion {
-  status: string;
-  data: ICustomerSuggestionData;
-}
-
 export interface ICustomerSuggestionData {
   _id: string;
   customer_id: string;

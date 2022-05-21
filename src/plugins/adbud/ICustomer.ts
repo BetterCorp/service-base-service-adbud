@@ -1,7 +1,30 @@
+export enum IAdbudTargetingAccuracy {
+  high = "high",
+  medium = "medium",
+  low = "low",
+}
+export enum IAdbudGeoTargetingAccuracy {
+  presence = "presence",
+  presence_or_interest = "presence_or_interest"
+}
 
-export interface ICustomer {
-  status: string;
-  data: ICustomerData;
+export interface ICustomerUpdateData {
+  address?: ICustomerDataAddress;
+  name?: string;
+  ads?: ICustomerDataAd[];
+  call_extension?: ICustomerDataCallExtension;
+  competitors?: string[];
+  dynamic_content?: boolean;
+  geotarget_ids?: number[];
+  geotarget_proximities?: ICustomerDataGeotargetProximity[];
+  language?: string;
+  negative_keywords?: any[];
+  site_links?: ICustomerDataSiteLink[];
+  targeting_accuracy?: IAdbudTargetingAccuracy;
+  url?: string;
+  geotargeting_accuracy?: IAdbudGeoTargetingAccuracy;
+  country_geo?: ICustomerDataCountryGeo;
+  geotargets?: ICustomerDataGeotarget[];
 }
 
 export interface ICustomerData {
@@ -49,7 +72,7 @@ export interface ICustomerData {
   start_date: null;
   subscription: ICustomerDataSubscription;
   tags: any[];
-  targeting_accuracy: string;
+  targeting_accuracy: IAdbudTargetingAccuracy;
   url: string;
   user_id: string;
   valid_payment: boolean;
@@ -64,7 +87,7 @@ export interface ICustomerData {
   status_reason: string;
   stats: ICustomerDataStats;
   policy_violation: boolean;
-  geotargeting_accuracy: string;
+  geotargeting_accuracy: IAdbudGeoTargetingAccuracy;
   hide_costs: string;
   fees: ICustomerDataDataFees;
   report_interval: null;

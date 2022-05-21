@@ -7,11 +7,6 @@ export enum IDashboardSelector {
   keywords = "keywords",
 }
 
-export interface IDashboard {
-  status: string;
-  data: IDashboardData;
-}
-
 export interface IDashboardData {
   account: IDashboardAccount;
   account_daily: IDashboardAccount[];

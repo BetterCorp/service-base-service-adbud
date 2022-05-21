@@ -1,11 +1,12 @@
 import { CPluginClient } from "@bettercorp/service-base/lib/interfaces/plugins";
 import { ICustomerSuggestionData } from '../../plugins/adbud/ICustomerSuggestion';
 import { IAdBudRequest, IAdBudRequestAuth, IAdBudRequestStats } from '../../plugins/adbud/IAdBudRequest';
-import { ICustomerData } from '../../plugins/adbud/ICustomer';
+import { ICustomerData, ICustomerUpdateData } from '../../plugins/adbud/ICustomer';
 import { MyPluginConfig } from '../../plugins/adbud/sec.config';
 import { ISearchTermDatum } from '../../plugins/adbud/ISearchTerm';
 import { IDashboardData } from '../../plugins/adbud/IDashboard';
 import { ISetTermData } from '../../plugins/adbud/ISetTerm';
+import { IGeoTarget, IGeoTargetRequest } from '../../plugins/adbud/IGeoTarget';
 
 export class adbud extends CPluginClient<MyPluginConfig> {
   public readonly _pluginName: string = "adbud";
@@ -14,6 +15,12 @@ export class adbud extends CPluginClient<MyPluginConfig> {
     return await this.emitEventAndReturn<IAdBudRequest<undefined>, ICustomerData>("get-customer", {
       auth: config,
       data: undefined
+    });
+  }
+  async setCustomer(config: IAdBudRequestAuth, data: ICustomerUpdateData): Promise<ICustomerData> {
+    return await this.emitEventAndReturn<IAdBudRequest<ICustomerUpdateData>, ICustomerData>("set-customer", {
+      auth: config,
+      data: data
     });
   }
 
@@ -42,6 +49,12 @@ export class adbud extends CPluginClient<MyPluginConfig> {
     return await this.emitEventAndReturn<IAdBudRequest<IAdBudRequestStats>, IDashboardData>("get-stats", {
       auth: config,
       data: query
+    });
+  }
+  async geoTarget(config: IAdBudRequestAuth, term: string, country: string): Promise<Array<IGeoTarget>> {
+    return await this.emitEventAndReturn<IAdBudRequest<IGeoTargetRequest>, Array<IGeoTarget>>("get-geo-target", {
+      auth: config,
+      data: { term, country }
     });
   }
 }

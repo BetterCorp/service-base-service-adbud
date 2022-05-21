@@ -1,7 +1,8 @@
+import { IAdbudResponseStatus } from './IAdbud';
 
 export interface ISearchTerm {
-  status: string;
-  data: ISearchTermDatum[];
+  status: IAdbudResponseStatus;
+  data: Array<ISearchTermDatum>;
   meta: ISearchTermMeta;
 }
 
