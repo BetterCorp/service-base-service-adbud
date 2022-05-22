@@ -105,12 +105,7 @@ export class adbud {
   }
 
   async geoTarget(term: string, country: string): Promise<Array<IGeoTarget>> {
-    let targetResponse = await this.axios.get<any, IAdbudAxiosResponse<Array<IGeoTarget>>>(`/geotargets`, {
-      params: {
-        term: term,
-        country: country
-      }
-    });
+    let targetResponse = await this.axios.get(`/geotargets?country=${ encodeURIComponent(country) }&term=${ encodeURIComponent(term) }`);
     if (targetResponse.status !== 200) throw `Search geoTarget Failed: ${ targetResponse.status }`;
     if (targetResponse.data.status !== IAdbudResponseStatus.success) throw `Search geoTarget Failed[]: ${ targetResponse.data.status }`;
     return targetResponse.data.data;
