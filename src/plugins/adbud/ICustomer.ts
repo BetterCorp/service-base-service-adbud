@@ -11,6 +11,7 @@ export enum IAdbudGeoTargetingAccuracy {
 export interface ICustomerUpdateData {
   address?: ICustomerDataAddress;
   name?: string;
+  display_name?: string;
   ads?: ICustomerDataAd[];
   call_extension?: ICustomerDataCallExtension;
   competitors?: string[];
