@@ -116,6 +116,7 @@ export interface ICustomerDataAd {
   description2: string;
   headline1: string;
   headline2: string;
+  headline3: string;
   keywords: string[];
   name: string;
   url: string;
