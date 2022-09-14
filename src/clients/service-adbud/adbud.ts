@@ -1,23 +1,23 @@
-import { ICustomerSuggestionData } from "../../plugins/adbud/ICustomerSuggestion";
-import { IAdBudRequestAuth } from "../../plugins/adbud/IAdBudRequest";
+import { ICustomerSuggestionData } from "../../plugins/service-adbud/ICustomerSuggestion";
+import { IAdBudRequestAuth } from "../../plugins/service-adbud/IAdBudRequest";
 import {
   ICustomerData,
   ICustomerUpdateData,
-} from "../../plugins/adbud/ICustomer";
-import { MyPluginConfig } from "../../plugins/adbud/sec.config";
-import { ISearchTermDatum } from "../../plugins/adbud/ISearchTerm";
+} from "../../plugins/service-adbud/ICustomer";
+import { MyPluginConfig } from "../../plugins/service-adbud/sec.config";
+import { ISearchTermDatum } from "../../plugins/service-adbud/ISearchTerm";
 import {
   IDashboardData,
   IDashboardSelector,
-} from "../../plugins/adbud/IDashboard";
-import { ISetTermData } from "../../plugins/adbud/ISetTerm";
-import { IGeoTarget } from "../../plugins/adbud/IGeoTarget";
+} from "../../plugins/service-adbud/IDashboard";
+import { ISetTermData } from "../../plugins/service-adbud/ISetTerm";
+import { IGeoTarget } from "../../plugins/service-adbud/IGeoTarget";
 import {
   ServiceCallable,
   ServicesBase,
   ServicesClient,
 } from "@bettercorp/service-base";
-import { ADBudReturnable } from "../../plugins/adbud/plugin";
+import { ADBudReturnable } from "../../plugins/service-adbud/plugin";
 
 const TIMEOUT_GET = 10000;
 const TIMEOUT_SET = 15000;
