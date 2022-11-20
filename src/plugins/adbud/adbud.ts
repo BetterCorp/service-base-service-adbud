@@ -73,7 +73,11 @@ export class adbud {
   }
 
   async setCustomer(data: ICustomerUpdateData): Promise<ICustomerData> {
-    let newDataToSend: ICustomerData = {} as any;
+    let newDataToSend: ICustomerData = {
+      google_ads: {
+        settings: {},
+      },
+    } as any;
     if (data.ads !== undefined)
       newDataToSend.google_ads.settings.ads = data.ads;
     if (data.address !== undefined) newDataToSend.address = data.address;
