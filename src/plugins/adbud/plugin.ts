@@ -31,15 +31,20 @@ export class Plugin extends CPlugin<MyPluginConfig> {
       IAdBudRequest<ICustomerUpdateData>,
       ICustomerData
     >(null, "set-customer", async (data?) => {
-      if (Tools.isNullOrUndefined(data)) throw "Undefined Data!";
-      const adbudClient = new adbud(
-        data!.auth.host,
-        data!.auth.username,
-        data!.auth.password,
-        data!.auth.customerId
-      );
-      await adbudClient.login();
-      return await adbudClient.setCustomer(data!.data);
+      try {
+        if (Tools.isNullOrUndefined(data)) throw "Undefined Data!";
+        const adbudClient = new adbud(
+          data!.auth.host,
+          data!.auth.username,
+          data!.auth.password,
+          data!.auth.customerId
+        );
+        await adbudClient.login();
+        return await adbudClient.setCustomer(data!.data);
+      } catch (except) {
+        this.log.error(except);
+        throw except;
+      }
     });
 
     await this.onReturnableEvent<
