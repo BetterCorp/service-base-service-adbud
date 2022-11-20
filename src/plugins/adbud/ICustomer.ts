@@ -31,34 +31,36 @@ export interface ICustomerUpdateData {
 export interface ICustomerData {
   _id: string;
   address: ICustomerDataAddress;
-  ads: ICustomerDataAd[];
+  //ads: ICustomerDataAd[];
   balance: number;
-  budget: number;
-  end_date: null;
-  call_extension: ICustomerDataCallExtension;
+  //budget: number;
+  //end_date: null;
+  //call_extension: ICustomerDataCallExtension;
   can_manage: boolean;
   cancelled: boolean;
   cancelled_at: null;
   completed_intro: boolean;
   costs: number;
   costs_synced_at: string;
-  competitors: string[];
+  //competitors: string[];
   currency: string;
   data_assistant_agreement: boolean;
-  display_name: string;
-  dynamic_content: boolean;
+  //display_name: string;
+  //dynamic_content: boolean;
   external_id: null;
-  geotarget_ids: number[];
-  geotarget_proximities: ICustomerDataGeotargetProximity[];
+  //geotargeting_accuracy: IAdbudGeoTargetingAccuracy;
+  //geotarget_ids: number[];
+  //geotarget_proximities: ICustomerDataGeotargetProximity[];
   google_ads: ICustomerDataGoogleAds;
   hash: string;
   hidden_features: any[];
-  language: string;
+  hide_costs: string;
+  //language: string;
   manager_id: string;
-  manually_paused: boolean;
-  max_cpc: number;
+  //manually_paused: boolean;
+  //max_cpc: number;
   name: string;
-  negative_keywords: any[];
+  //negative_keywords: any[];
   org_number: null;
   payment_methods: any[];
   payment_providers: any[];
@@ -67,13 +69,13 @@ export interface ICustomerData {
   promotion: string;
   referrer: null;
   self_service: boolean;
-  site_links: ICustomerDataSiteLink[];
+  //site_links: ICustomerDataSiteLink[];
   status: string;
   status_last_active_at: string;
-  start_date: null;
+  //start_date: null;
   subscription: ICustomerDataSubscription;
   tags: any[];
-  targeting_accuracy: IAdbudTargetingAccuracy;
+  //targeting_accuracy: IAdbudTargetingAccuracy;
   url: string;
   user_id: string;
   valid_payment: boolean;
@@ -82,24 +84,36 @@ export interface ICustomerData {
   created_at: string;
   budget_changed_at: string;
   updated_at: string;
+  fees: ICustomerDataDataFees;
+  report_interval: null;
   completed_setup: boolean;
-  max_cost: number;
+  //max_cost: number;
   setup_step: string;
   status_reason: string;
   stats: ICustomerDataStats;
   policy_violation: boolean;
-  geotargeting_accuracy: IAdbudGeoTargetingAccuracy;
-  hide_costs: string;
-  fees: ICustomerDataDataFees;
-  report_interval: null;
+  shared_lists: Array<any>;
+  google_analytics: ICustomerDataGoogleAnalytics;
   country_geo: ICustomerDataCountryGeo;
-  geotargets: ICustomerDataGeotarget[];
-  max_cpc_override: boolean;
+  //geotargets: ICustomerDataGeotarget[];
+  //max_cpc_override: boolean;
   plan: ICustomerDataPlan;
   user: ICustomerDataManager;
   manager: ICustomerDataManager;
   alerts: any[];
   total_costs: number;
+}
+
+export interface ICustomerDataGoogleAnalytics {
+  user_id: string;
+  user_email: string;
+  account_id: string | null;
+  account_name: string | null;
+  property_id: string | null;
+  property_name: string | null;
+  view_id: string | null;
+  view_name: string | null;
+  setup_completed_at: string | null;
 }
 
 export interface ICustomerDataAddress {
@@ -158,6 +172,10 @@ export interface ICustomerDataGeotarget {
 }
 
 export interface ICustomerDataGoogleAds {
+  data: ICustomerDataGoogleAdsData;
+  settings: ICustomerDataGoogleAdsSettings;
+}
+export interface ICustomerDataGoogleAdsData {
   bidding_strategy: string;
   click_bidding_id: string;
   conversion_bidding_id: string;
@@ -181,6 +199,28 @@ export interface ICustomerDataGoogleAds {
   budget_order_adjustments: number;
   budget_order_updated_at: ICustomerDataEdAt;
   last_published_at: ICustomerDataEdAt;
+}
+export interface ICustomerDataGoogleAdsSettings {
+  ads: ICustomerDataAd[];
+  budget: number;
+  end_date: null;
+  call_extension: ICustomerDataCallExtension;
+  competitors: string[];
+  display_name: string;
+  dynamic_content: boolean;
+  geotargeting_accuracy: IAdbudGeoTargetingAccuracy;
+  geotarget_ids: number[];
+  geotarget_proximities: ICustomerDataGeotargetProximity[];
+  language: string;
+  manually_paused: boolean;
+  max_cpc: number;
+  negative_keywords: any[];
+  site_links: ICustomerDataSiteLink[];
+  start_date: null;
+  targeting_accuracy: IAdbudTargetingAccuracy;
+  max_cost: number;
+  geotargets: ICustomerDataGeotarget[];
+  max_cpc_override: boolean;
 }
 
 export interface ICustomerDataEdAt {
