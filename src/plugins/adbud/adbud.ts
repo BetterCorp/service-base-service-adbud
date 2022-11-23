@@ -189,7 +189,7 @@ export class adbud {
           if (
             customerResp.data.data.google_ads.settings.ads[
               adIndex
-            ].keywords.indexOf(adKeyword) < 0
+            ].keywords.map(x=>x.toUpperCase()).indexOf(adKeyword.toUpperCase()) < 0
           )
             throw `ADS NOT UPDATED [${adIndex}]: keywords [${adKeyword}]`;
         }
@@ -246,8 +246,8 @@ export class adbud {
       for (let competitorName of newDataToSend.google_ads.settings
         .competitors) {
         if (
-          customerResp.data.data.google_ads.settings.competitors.indexOf(
-            competitorName
+          customerResp.data.data.google_ads.settings.competitors.map(x=>x.toUpperCase()).indexOf(
+            competitorName.toUpperCase()
           ) < 0
         )
           throw `ADS NOT UPDATED competitors [${competitorName}]`;
@@ -329,8 +329,8 @@ export class adbud {
       for (let negKeyword of newDataToSend.google_ads.settings
         .negative_keywords) {
         if (
-          customerResp.data.data.google_ads.settings.negative_keywords.indexOf(
-            negKeyword
+          customerResp.data.data.google_ads.settings.negative_keywords.map(x=>x.toUpperCase()).indexOf(
+            negKeyword.toUpperCase()
           ) < 0
         )
           throw `ADS NOT UPDATED negative_keywords [${negKeyword}]`;
